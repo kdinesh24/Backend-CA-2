@@ -1,21 +1,20 @@
 const express = require('express')
-const dotenv = require('dotenv')
+const app = express()
 const users = require('./data')
 
-const app = express()
+
 const PORT = 3000;
 
 
 app.use(express.json())
 
 app.get('/user', (req, res) => {
-    const {username} = req.query;
+    const { username } = req.query;
 
     if (!username) {
         return res.status(400).json({message: "User parameter cannot be empty"})
     }
-
-    const user = user.find(u => u.username.toLowerCase() === username.toLowerCase())
+    const user = users.find(u => u.username === username)
 
     if (user) {
         return res.json({ message: "User found", data: user })
